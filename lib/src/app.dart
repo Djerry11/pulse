@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:pulse/src/routing/app_routes.dart';
 import 'package:pulse/src/utils/app_themes.dart';
 
 class MyApp extends StatelessWidget {
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       theme: AppThemes.lightTheme,
-      routerConfig: ,
+      routerConfig: goRouter,
     );
   }
 }
