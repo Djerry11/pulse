@@ -1,118 +1,124 @@
 import 'dart:async';
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pulse/src/features/shared/helpers/reference_helper.dart';
 import 'package:pulse/src/features/shared/models/error_model.dart';
 
-/// Used to abstract the error handling when making API requests.
-/// For a function [future], executes the [onError]
-/// and catches the error. Also logs the error.
-///
-/// This function is based on the premise that exceptions should not
-/// propagate further unhandled from the repository layer.
+/// Executes a given async function [future] and handles errors by executing [onError].
+/// This function is used to abstract the error handling when making API requests.
+/// If [withLog] is true, it logs the success or error.
+/// Exceptions are caught and wrapped into a [PulseError] object.
+/// This ensures exceptions do not propagate further from the repository layer.
 Future<T> runAsyncCall<T>({
-  required Future<T> Function() future,
-  required T Function(PulseError) onError,
-  final bool withLog = true,
+  required Future<T> Function() future, // The async function to be executed
+  required T Function(PulseError) onError, // Function to handle errors
+  final bool withLog = true, // Whether to log the operation
+  final int retryCount = 3, // Number of retries for the async call
+  final Duration timeout =
+      const Duration(seconds: 30), // Timeout for the async call
 }) async {
-  try {
-    final response = await future();
-    if (withLog) {
-      log(
-        'Success: $future executed successfully',
-        name: '$future',
-      );
-    }
-    return response;
-  } catch (e, stk) {
-    if (withLog) {
-      log(
-        'Error!!!: $future executed with an error',
-        name: '$future',
-        error: e,
-        stackTrace: stk,
-      );
-    }
+  int attempts = 0;
 
-    var pulseError = PulseError(
-      message: '$future: An error occurred',
-      detailedMessage: e.toString(),
-    );
-
-    if (e is FirebaseException) {
-      pulseError = PulseError(
-        message: e.message.toString(),
-        detailedMessage: e.toString(),
-        code: e.code,
-      );
-    } else if (e is FirebaseAuthException) {
-      pulseError = PulseError(
-        message: e.message.toString(),
-        detailedMessage: e.toString(),
-        code: e.code,
-      );
-    } else if (e is Exception) {
-      pulseError = PulseError(
-        message: e.toString(),
-      );
-    } else if (e is Error) {
-      if (e is ArgumentError) {
-        pulseError = PulseError(
-          message: e.message,
-        );
-      } else if (e is AssertionError) {
-        pulseError = PulseError(
-          message: e.message.toString(),
-        );
-      } else {
-        pulseError = PulseError(
-          message: e.toString(),
+  while (attempts < retryCount) {
+    try {
+      final response =
+          await future().timeout(timeout); // Execute the future with timeout
+      if (withLog) {
+        log(
+          'Success: ${future.toString()} executed successfully',
+          name: 'runAsyncCall',
         );
       }
-    } else if (e is PulseError) {
-      pulseError = e;
-    }
+      return response; // Return the successful response
+    } catch (e, stk) {
+      attempts++;
 
-    return onError(pulseError);
+      if (attempts >= retryCount) {
+        if (withLog) {
+          log(
+            'Error!!!: ${future.toString()} executed with an error',
+            name: 'runAsyncCall',
+            error: e,
+            stackTrace: stk,
+          );
+        }
+
+        // Create a PulseError based on the exception type
+        var pulseError = PulseError(
+          message: '${future.toString()}: An error occurred',
+          detailedMessage: e.toString(),
+        );
+
+        if (e is FirebaseException) {
+          pulseError = PulseError(
+            message: e.message.toString(),
+            detailedMessage: e.toString(),
+            code: e.code,
+          );
+        } else if (e is FirebaseAuthException) {
+          pulseError = PulseError(
+            message: e.message.toString(),
+            detailedMessage: e.toString(),
+            code: e.code,
+          );
+        } else if (e is TimeoutException) {
+          pulseError = PulseError(
+            message: 'Timeout: The operation took longer than expected',
+            detailedMessage: e.toString(),
+          );
+        } else if (e is Exception) {
+          pulseError = PulseError(
+            message: e.toString(),
+          );
+        } else if (e is Error) {
+          if (e is ArgumentError) {
+            pulseError = PulseError(
+              message: e.message,
+            );
+          } else if (e is AssertionError) {
+            pulseError = PulseError(
+              message: e.message.toString(),
+            );
+          } else {
+            pulseError = PulseError(
+              message: e.toString(),
+            );
+          }
+        } else if (e is PulseError) {
+          pulseError = e;
+        }
+
+        return onError(
+            pulseError); // Handle the error using the provided function
+      }
+    }
   }
+
+  throw Exception(
+      'Unexpected error: reached the end of runAsyncCall without returning.');
 }
 
-/// Executes the given [TransactionHandler] and then attempts to commit the
-/// changes applied within an atomic transaction.
-///
-/// In the [TransactionHandler], a set of reads and writes can be performed
-/// atomically using the [Transaction] object passed to the [TransactionHandler].
-/// After the [TransactionHandler] is run, [FirebaseFirestore] will attempt to apply the
-/// changes to the server. If any of the data read has been modified outside
-/// of this [Transaction] since being read, then the transaction will be
-/// retried by executing the provided [TransactionHandler] again. If the transaction still
-/// fails after 5 retries, then the transaction will fail.s
-///
-/// The [TransactionHandler] may be executed multiple times, it should be able
-/// to handle multiple executions.
-///
-/// Data accessed with the transaction will not reflect local changes that
-/// have not been committed. For this reason, it is required that all
-/// reads are performed before any writes. Transactions must be performed
-/// while online. Otherwise, reads will fail, and the final commit will fail.
-///
-/// By default transactions are limited to 30 seconds of execution time. This
-/// timeout can be adjusted by setting the timeout parameter.
-///
-/// By default transactions will retry 5 times. You can change the number of attemps
-/// with [maxAttempts]. Attempts should be at least 1.
+//-------------------------------------------------------------------
+/// Executes a Firestore transaction and handles errors.
+/// A [TransactionHandler] function [onTransaction] is executed within an atomic transaction.
+/// If the transaction fails, it retries up to [maxAttempts] times.
+/// Errors are handled using [onError] function and logged if [withLog] is true.
+/// The transaction timeout can be adjusted using [timeout].
+/// [PulseReferenceHelper.firestoreRef] is used to access Firestore instance.
 Future<T> runTransaction<T>({
-  required Future<T> Function(Transaction) onTransaction,
-  required T Function(PulseError) onError,
-  final bool withLog = true,
-  final Duration timeout = const Duration(seconds: 30),
-  final int maxAttempts = 5,
+  required Future<T> Function(Transaction)
+      onTransaction, // Function to execute the transaction
+  required T Function(PulseError) onError, // Function to handle errors
+  final bool withLog = true, // Whether to log the operation
+  final Duration timeout =
+      const Duration(seconds: 30), // Timeout for the transaction
+  final int maxAttempts = 5, // Maximum number of retry attempts
+  final int retryCount = 3, // Number of retries for the async call
 }) async {
   return runAsyncCall(
     future: () async {
-      return PulseReferenceHelper.ref.runTransaction<T>(
+      return PulseReferenceHelper.firestoreRef.runTransaction<T>(
         (transaction) => onTransaction(transaction),
         timeout: timeout,
         maxAttempts: maxAttempts,
@@ -120,5 +126,7 @@ Future<T> runTransaction<T>({
     },
     onError: onError,
     withLog: withLog,
+    retryCount: retryCount,
+    timeout: timeout,
   );
 }

@@ -5,6 +5,7 @@ typedef ColRef = CollectionReference<Map<String, dynamic>>;
 typedef DocRef = DocumentReference<Map<String, dynamic>>;
 
 class PulseReferenceHelper {
+  //------------------- ONE TIME INITIALIZATION AND SHARING FIRESTORE REFERENCE -------------------//
   static final _ref = FirebaseFirestore.instance;
   static FirebaseFirestore get ref => _ref;
 
@@ -13,7 +14,7 @@ class PulseReferenceHelper {
   static String mainCollectionPrefix = '';
   static String mainCollectionSuffix = '';
 
-  // main collections
+  //------------------- MAIN COLLECTIONS -------------------//
   static ColRef get usersCol => _ref
       .collection('$mainCollectionPrefix$usersColName$mainCollectionSuffix');
   static ColRef get feedsCol => _ref
@@ -28,7 +29,7 @@ class PulseReferenceHelper {
       .collection('$mainCollectionPrefix$reportsColName$mainCollectionSuffix');
   //
 
-  // main docs
+  //-------------------MAIN DOCUMENT REFERENCES -------------------//
   static DocRef userDoc({required final String? uid}) => usersCol.doc(uid);
   static DocRef feedDoc({required final String? feedId}) =>
       feedsCol.doc(feedId);
@@ -42,7 +43,7 @@ class PulseReferenceHelper {
       reportsCol.doc(reportId);
   //
 
-  // users subcollections
+  //-------------------SUB USERS COLLECTIONS -------------------//
   static ColRef receivedFollowRequestsCol({required final String uid}) =>
       usersCol.doc(uid).collection(receivedFollowRequestsColName);
 
@@ -92,7 +93,7 @@ class PulseReferenceHelper {
       usersCol.doc(uid).collection(devicesColName);
   //
 
-  // feed subcollections
+  //------------------- FEEDS SUB COLLECTIONS -------------------//
   static ColRef reactionsCol({required final String feedId}) =>
       feedsCol.doc(feedId).collection(reactionsColName);
 
@@ -121,12 +122,12 @@ class PulseReferenceHelper {
       feedsCol.doc(feedId).collection(feedFollowersColName);
   //
 
-  // moments subcollections
+  //------------------- MOMENTS SUB COLLECTIONS -------------------//
   static ColRef momentViewersCol({required final String momentId}) =>
       momentsCol.doc(momentId).collection(momentViewersColName);
   //
 
-  // chats subcollections
+  //------------------- CHATS SUB COLLECTIONS -------------------//
   static ColRef messagesCol({required final String chatId}) =>
       chatsCol.doc(chatId).collection(messagesColName);
 
@@ -134,7 +135,7 @@ class PulseReferenceHelper {
       chatsCol.doc(chatId).collection(mediasLinksFilesColName);
   //
 
-  // hastag subcollections
+  //------------------- HASHTAGS SUB COLLECTIONS -------------------//
   static ColRef hashtagFeedsCol({required final String hashtag}) =>
       hashtagsCol.doc(hashtag).collection(feedsColName);
   //

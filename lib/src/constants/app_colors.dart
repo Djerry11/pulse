@@ -9,7 +9,7 @@ class AppColors {
   static const Color inputBackgroundLight = Color(0xFFF0F0F0);
   static const Color white = Color(0xFFFFFFFF);
 
-  // Dark mode colors (estimated)
+  // Dark mode colors
   static const Color backgroundDark = Color(0xFF121212);
   static const Color surfaceDark = Color(0xFF1E1E1E);
   static const Color textDarkMode = Color(0xFFE0E0E0);

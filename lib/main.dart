@@ -19,9 +19,9 @@ Future<void> main() async {
 
   runApp(ProviderScope(
     child: EasyLocalization(
-      supportedLocales: const [Locale('en')],
+      supportedLocales: const [Locale('en', 'US'), Locale('ne', 'NP')],
       path: 'assets/translations',
-      fallbackLocale: const Locale('en'),
+      fallbackLocale: const Locale('en', 'US'),
       child: const MyApp(),
     ),
   ));
@@ -46,7 +46,11 @@ void registerErrorHandlers() {
         backgroundColor: Colors.red,
         title: Text('An error occurred'.hardcoded),
       ),
-      body: Center(child: Text(details.toString())),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Text(details.toString()),
+        ),
+      ),
     );
   };
 }
