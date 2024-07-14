@@ -51,6 +51,7 @@ dependencies:
   json_annotation: ^4.9.0
   google_fonts: ^6.2.1
   linkfy_text: ^1.1.6
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies:
   flutter_test:
@@ -83,6 +84,7 @@ flutter:
     - assets/
     - assets/translations/
     - assets/images/
+    - assets/logo/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

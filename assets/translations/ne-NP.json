@@ -1,4 +1,15 @@
 {
   "sign_in_msg": "साइन इन स्क्रीन",
-  "app_name": "Pulse"
+  "app_name": "Pulse",
+  "email_hint": "उपयोगकर्ता नाम, ईमेल वा मोबाइल नम्बर",
+  "password_hint": "पासवर्ड",
+  "log_in": "लग इन",
+  "forgot_password": "पासवर्ड बिर्सनु भयो?",
+
+  "login_with": "लग इन गर्नुहोस्",
+  "login_with_google": "Google बाट लग इन गर्नुहोस्",
+  "login_with_facebook": "Facebook बाट लग इन गर्नुहोस्",
+
+  "dont_have_account": "खाता छैन?",
+  "sign_up": "साइन अप"
 }

@@ -1,4 +1,14 @@
 {
   "sign_in_msg": "Sign In Screen",
-  "app_name": "Pulse"
+  "app_name": "Pulse",
+  "email_hint": "Username, email or mobile number",
+  "password_hint": "Password",
+  "log_in": "Log In",
+  "forgot_password": "Forgot password?",
+  "login_with": "Log in with",
+
+  "login_with_google": "Log in with Google",
+  "login_with_facebook": "Log in with Facebook",
+  "dont_have_account": "Don't have account?",
+  "sign_up": "Sign up"
 }

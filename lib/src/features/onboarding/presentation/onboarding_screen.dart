@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pulse/src/common_widgets/custom_pulse_button.dart';
 import 'package:pulse/src/common_widgets/responsive_center.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pulse/src/common_widgets/primary_button.dart';
 import 'package:pulse/src/constants/app_sizes.dart';
 import 'package:pulse/src/extensions/string_extensions.dart';
+import 'package:pulse/src/extensions/widget_extensions.dart';
 import 'package:pulse/src/features/onboarding/presentation/onboarding_controller.dart';
 import 'package:pulse/src/routing/app_routes.dart';
 
@@ -35,7 +37,7 @@ class OnboardingScreen extends ConsumerWidget {
               height: 200.h,
             ),
             gapH16,
-            PrimaryButton(
+            CustomPulseButton.filled(
               text: 'Get Started'.hardcoded,
               isLoading: state.isLoading,
               onPressed: state.isLoading
@@ -49,7 +51,7 @@ class OnboardingScreen extends ConsumerWidget {
                         context.goNamed(AppRoute.signIn.name);
                       }
                     },
-            ),
+            ).pX(20),
           ],
         ),
       ),

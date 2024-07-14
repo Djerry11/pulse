@@ -417,9 +417,9 @@ class _PTextState extends State<PulseText> {
     _chooseDefaultStyle(context);
 
     return NotificationListener<ScrollNotification>(
-      onNotification: (notif) {
+      onNotification: (notify) {
         if (widget.onScroll != null) {
-          widget.onScroll!(notif);
+          widget.onScroll!(notify);
         }
         return true;
       },
