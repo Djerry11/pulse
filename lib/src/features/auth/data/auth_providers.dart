@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:pulse/src/features/auth/data/auth_user_repository.dart';
+import 'package:pulse/src/features/auth/data/auth_repository.dart';
 
 import 'package:pulse/src/features/profile/data/user_repository_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

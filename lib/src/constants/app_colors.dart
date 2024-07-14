@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
+  static const Color primaryTheme = Color(0xFFf86432);
   // Light mode colors
   static const Color primaryOrange = Color(0xFFFA7E1E);
   static const Color backgroundLight = Color(0xFFFAFAFA);

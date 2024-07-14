@@ -7,7 +7,7 @@ typedef DocRef = DocumentReference<Map<String, dynamic>>;
 class PulseReferenceHelper {
   //------------------- ONE TIME INITIALIZATION AND SHARING FIRESTORE REFERENCE -------------------//
   static final _ref = FirebaseFirestore.instance;
-  static FirebaseFirestore get ref => _ref;
+  static FirebaseFirestore get firestoreRef => _ref;
 
   String get uniqueId => _ref.collection('random').doc().id;
 

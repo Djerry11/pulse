@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pulse/src/constants/app_colors.dart';
+import 'package:pulse/src/utils/text_theme.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_themes.g.dart';
@@ -9,25 +11,34 @@ class AppThemes {
   // * DEFAULT THEME FOR THE APP-------------------------------------
   static ThemeData get _defaultTheme {
     return ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: AppColors.primaryOrange,
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
+      useMaterial3: true,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: AppColors.primaryOrange,
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.0),
           ),
         ),
-        outlinedButtonTheme: OutlinedButtonThemeData(
-          style: OutlinedButton.styleFrom(
-            side: const BorderSide(color: AppColors.primaryOrange),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          side: const BorderSide(color: AppColors.primaryOrange),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
           ),
-        ));
+        ),
+      ),
+      // INPUT FIELDS THEME FOR THE LIGHT MODE
+      inputDecorationTheme: InputDecorationTheme(
+        fillColor: Colors.transparent,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: BorderSide.none,
+        ),
+      ),
+    );
   }
 
   // * LIGHT THEME FOR THE APP-------------------------------------
@@ -38,11 +49,7 @@ class AppThemes {
       onSurface: AppColors.textDark,
     ),
     // TEXT THEME FOR THE LIGHT MODE
-    textTheme: const TextTheme(
-      displayLarge: TextStyle(color: AppColors.textDark),
-      bodyLarge: TextStyle(color: AppColors.textDark),
-      bodyMedium: TextStyle(color: AppColors.textLight),
-    ),
+    textTheme: lightTextTheme,
 
     // APP BAR THEME FOR THE LIGHT MODE
     appBarTheme: const AppBarTheme(
@@ -51,15 +58,6 @@ class AppThemes {
       elevation: 0,
     ),
 
-    // INPUT FIELDS THEME FOR THE LIGHT MODE
-    inputDecorationTheme: InputDecorationTheme(
-      fillColor: AppColors.inputBackgroundLight,
-      filled: true,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: BorderSide.none,
-      ),
-    ),
     // button themes
   );
 
@@ -71,25 +69,12 @@ class AppThemes {
       onSurface: AppColors.textDarkMode,
     ),
     // TEXT THEME FOR THE DARK MODE
-    textTheme: const TextTheme(
-      displayLarge: TextStyle(color: AppColors.textDarkMode),
-      bodyLarge: TextStyle(color: AppColors.textDarkMode),
-      bodyMedium: TextStyle(color: AppColors.textLightDarkMode),
-    ),
+    textTheme: darkTextTheme,
     // APP BAR THEME FOR THE DARK MODE
     appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.backgroundDark,
       foregroundColor: AppColors.textDarkMode,
       elevation: 0,
-    ),
-    // THEME FOR THE INPUT FIELDS FOR DARK MODE
-    inputDecorationTheme: InputDecorationTheme(
-      fillColor: AppColors.inputBackgroundDark,
-      filled: true,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: BorderSide.none,
-      ),
     ),
   );
 }
@@ -122,4 +107,8 @@ class AppThemeNotifier extends _$AppThemeNotifier {
   void setSystemTheme(ThemeMode mode) {
     state = mode == ThemeMode.dark ? AppThemes.darkTheme : AppThemes.lightTheme;
   }
+
+  SystemUiOverlayStyle get overlayStyle => state == AppThemes.darkTheme
+      ? SystemUiOverlayStyle.light.copyWith(statusBarColor: Colors.transparent)
+      : SystemUiOverlayStyle.dark.copyWith(statusBarColor: Colors.transparent);
 }

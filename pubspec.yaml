@@ -49,6 +49,8 @@ dependencies:
   flutter_facebook_auth: ^6.0.4
   google_sign_in: ^6.2.1
   json_annotation: ^4.9.0
+  google_fonts: ^6.2.1
+  linkfy_text: ^1.1.6
 
 dev_dependencies:
   flutter_test:

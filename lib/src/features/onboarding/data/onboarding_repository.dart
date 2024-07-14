@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 part 'onboarding_repository.g.dart';
 
-// * Repository for onboarding checking and setting
+// * Repository for checking if onboarding is completed and setting
 class OnboardingRepository {
   final SharedPreferences sharedPreference;
   OnboardingRepository({required this.sharedPreference});
@@ -18,6 +18,8 @@ class OnboardingRepository {
     return sharedPreference.getBool(onboardingKey) ?? false;
   }
 }
+
+// * Provider for OnboardingRepository
 
 @Riverpod(keepAlive: true)
 Future<OnboardingRepository> onboardingRepository(
