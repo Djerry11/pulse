@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pulse/src/common_widgets/custom_pulse_button.dart';
 import 'package:pulse/src/common_widgets/custom_input_field.dart';
@@ -10,6 +11,7 @@ import 'package:pulse/src/common_widgets/custom_input_field.dart';
 import 'package:pulse/src/constants/app_colors.dart';
 import 'package:pulse/src/constants/app_sizes.dart';
 import 'package:pulse/src/extensions/widget_extensions.dart';
+import 'package:pulse/src/routing/app_routes.dart';
 import 'package:pulse/src/utils/app_themes.dart';
 import 'package:pulse/src/utils/pulse_text.dart';
 
@@ -272,7 +274,8 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                 fontWeight: FontWeight.w500,
               ),
           onPressed: () {
-            toggleLocale();
+            debugPrint('Sign Up');
+            context.pushNamed(AppRoute.signUp.name);
           },
         ),
       ],

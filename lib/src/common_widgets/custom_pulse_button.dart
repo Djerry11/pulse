@@ -152,6 +152,7 @@ class CustomPulseButton extends StatelessWidget {
 
   // --outlinedButton()--
   Widget _buildOutlinedButton(final BuildContext context) {
+    //--------- outlinedButtonStyle ---------
     final outlinedButtonStyle = OutlinedButton.styleFrom(
       side: borderSide ??
           BorderSide(

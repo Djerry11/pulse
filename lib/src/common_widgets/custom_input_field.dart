@@ -64,6 +64,7 @@ class _PulseInputState extends State<PulseInput> {
 
   @override
   Widget build(BuildContext context) {
+    //-----------------------------------
     return TextFormField(
       controller: _controller,
       autofocus: widget.autoFocus,
@@ -108,7 +109,7 @@ class _PulseInputState extends State<PulseInput> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),
-          borderSide: BorderSide(color: Colors.grey.shade600, width: 2),
+          borderSide: BorderSide(color: Theme.of(context).focusColor, width: 2),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.r),

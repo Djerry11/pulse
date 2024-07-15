@@ -2,7 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pulse/firebase_options.dart';
 import 'package:pulse/src/app.dart';
@@ -10,7 +11,9 @@ import 'package:pulse/src/extensions/string_extensions.dart';
 
 Future<void> main() async {
   // * Ensure Flutter binding is initialized
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  // * splash screen
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   // * Initialize EasyLocalization
   await EasyLocalization.ensureInitialized();
 

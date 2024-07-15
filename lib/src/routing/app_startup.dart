@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pulse/src/constants/app_sizes.dart';
 import 'package:pulse/src/extensions/string_extensions.dart';
@@ -11,12 +12,16 @@ part 'app_startup.g.dart';
 // https://codewithandrea.com/articles/robust-app-initialization-riverpod/
 @Riverpod(keepAlive: true)
 Future<void> appStartup(AppStartupRef ref) async {
+  debugPrint('AppStartup: Initializing app...');
   ref.onDispose(() {
     // ensure dependent providers are disposed as well
     ref.invalidate(onboardingRepositoryProvider);
   });
   // await for all initialization code to be complete before returning
   await ref.watch(onboardingRepositoryProvider.future);
+  //----remove the splash screen-----
+  debugPrint('Splash screen removed');
+  // FlutterNativeSplash.remove();
 }
 
 /// Widget class to manage asynchronous app initialization
@@ -43,6 +48,9 @@ class AppStartupLoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint(
+      'AppStartupLoadingWidget: Loading app startup state...',
+    );
     return Scaffold(
       appBar: AppBar(),
       body: const Center(

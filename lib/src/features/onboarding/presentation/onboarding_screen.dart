@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pulse/src/common_widgets/custom_pulse_button.dart';
 import 'package:pulse/src/common_widgets/responsive_center.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pulse/src/common_widgets/primary_button.dart';
 import 'package:pulse/src/constants/app_sizes.dart';
 import 'package:pulse/src/extensions/string_extensions.dart';
 import 'package:pulse/src/extensions/widget_extensions.dart';
