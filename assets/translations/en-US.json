@@ -9,6 +9,33 @@
 
   "login_with_google": "Log in with Google",
   "login_with_facebook": "Log in with Facebook",
-  "dont_have_account": "Don't have account?",
-  "sign_up": "Sign up"
+  "dont_have_account": "Don't have account? ",
+  "sign_up": "Sign up",
+
+  "or": "or",
+  "next": "Next",
+
+  "sign_up_msg": "Sign Up Screen",
+  "name_title": "What's your name? ",
+  "name_subtitle": "Add your name so friends can find you. ",
+  "full_name": "Full name",
+  "name_hint": "Enter your full name",
+
+  "email": "Email",
+  "phone_number": "Phone Number",
+  "already_have_account": "Already have account? ",
+  "password": "Password",
+  "password_title": "Create password",
+  "confirm_password": "Confirm Password",
+  "password_subtitle": "Create a password at least 8 characters long. Ensure it's a mix of letters, numbers & symbols that would be challenging for others to guess. ",
+
+  "username_hint": "Username",
+  "username": "Username",
+  "username_title": "Create username",
+  "username_subtitle": "Create a username that's unique to you or take our friendly suggestion. It should be at least 5 characters long.",
+
+  "birthday": "Birthday",
+  "birthday_hint": "Enter your birthday",
+  "birthday_title": "When's your birthday? ",
+  "birthday_subtitle": "Enter your birthday ,even for non public accounts. It's private unless you decide to share it. "
 }

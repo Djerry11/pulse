@@ -12,6 +12,7 @@ class PulseInput extends StatefulWidget {
     this.onPressed,
     this.onFormSubmitted,
     this.onChanged,
+    this.focusNode,
     this.enabled = true,
     this.leading,
     this.trailing,
@@ -24,6 +25,7 @@ class PulseInput extends StatefulWidget {
 
   final TextEditingController? controller;
   final bool autoFocus;
+  final FocusNode? focusNode;
   final String hintText;
   final String? labelText;
   final Function()? onPressed;
@@ -64,10 +66,12 @@ class _PulseInputState extends State<PulseInput> {
 
   @override
   Widget build(BuildContext context) {
+    final themeContext = Theme.of(context);
     //-----------------------------------
     return TextFormField(
       controller: _controller,
       autofocus: widget.autoFocus,
+      focusNode: widget.focusNode,
       onTap: widget.onPressed,
       inputFormatters: widget.inputFormatters,
       enabled: widget.enabled,
@@ -103,25 +107,35 @@ class _PulseInputState extends State<PulseInput> {
                 },
               )
             : widget.trailing,
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.r),
+          borderSide: const BorderSide(color: Colors.red, width: 2),
+        ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.r),
-          borderSide: BorderSide(color: Colors.grey.shade400, width: 2),
+          borderRadius: BorderRadius.circular(10.r),
+          borderSide: BorderSide(
+              color: themeContext.colorScheme.onSurface.withOpacity(0.5),
+              width: 1.7),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.r),
-          borderSide: BorderSide(color: Theme.of(context).focusColor, width: 2),
+          borderRadius: BorderRadius.circular(10.r),
+          borderSide:
+              BorderSide(color: themeContext.colorScheme.onSurface, width: 2),
         ),
+
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.r),
-          borderSide: BorderSide(color: Colors.grey.shade400, width: 2),
+          borderSide: BorderSide(
+              color: themeContext.colorScheme.onSurface.withOpacity(0.5),
+              width: 1.7),
         ),
-        floatingLabelBehavior: FloatingLabelBehavior.auto,
+        // floatingLabelBehavior: FloatingLabelBehavior.auto,
         // labelStyle: TextStyle(
         //   color: _isFocused ? Theme.of(context).primaryColor : Colors.grey,
         // ),
-        hintStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
-              color: Colors.grey.shade500,
-            ),
+        hintStyle: themeContext.textTheme.titleSmall!.copyWith(
+          color: Colors.grey.shade500,
+        ),
       ),
     );
   }

@@ -1,78 +1,79 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pulse/src/constants/app_colors.dart';
 
 final TextTheme lightTextTheme = TextTheme(
-  displayLarge: GoogleFonts.inter(
+  displayLarge: GoogleFonts.nunitoSans(
     fontSize: 57,
     fontWeight: FontWeight.w400,
     color: Colors.black,
   ),
-  displayMedium: GoogleFonts.inter(
+  displayMedium: GoogleFonts.nunitoSans(
     fontSize: 45,
     fontWeight: FontWeight.w400,
     color: Colors.black,
   ),
-  displaySmall: GoogleFonts.inter(
+  displaySmall: GoogleFonts.nunitoSans(
     fontSize: 36,
     fontWeight: FontWeight.w400,
     color: Colors.black,
   ),
-  headlineLarge: GoogleFonts.inter(
+  headlineLarge: GoogleFonts.nunitoSans(
     fontSize: 32,
     fontWeight: FontWeight.w400,
     color: Colors.black,
   ),
-  headlineMedium: GoogleFonts.inter(
+  headlineMedium: GoogleFonts.nunitoSans(
     fontSize: 28,
     fontWeight: FontWeight.w400,
     color: Colors.black,
   ),
-  headlineSmall: GoogleFonts.inter(
+  headlineSmall: GoogleFonts.nunitoSans(
     fontSize: 24,
     fontWeight: FontWeight.w400,
-    color: Colors.black,
+    color: TextColors.highDarkText,
   ),
-  titleLarge: GoogleFonts.inter(
+  titleLarge: GoogleFonts.nunitoSans(
     fontSize: 22,
     fontWeight: FontWeight.w400,
     color: Colors.black,
   ),
-  titleMedium: GoogleFonts.inter(
+  titleMedium: GoogleFonts.nunitoSans(
     fontSize: 16,
     fontWeight: FontWeight.w500,
     color: Colors.black,
   ),
-  titleSmall: GoogleFonts.inter(
+  titleSmall: GoogleFonts.nunitoSans(
     fontSize: 14,
     fontWeight: FontWeight.w500,
     color: Colors.black,
   ),
-  bodyLarge: GoogleFonts.inter(
+  bodyLarge: GoogleFonts.nunitoSans(
     fontSize: 16,
     fontWeight: FontWeight.w400,
-    color: Colors.black,
+    color: TextColors.mediumDarkText,
   ),
-  bodyMedium: GoogleFonts.inter(
+  bodyMedium: GoogleFonts.nunitoSans(
     fontSize: 14,
     fontWeight: FontWeight.w400,
-    color: Colors.black,
+    color: TextColors.lowDarkText,
   ),
-  bodySmall: GoogleFonts.inter(
+  bodySmall: GoogleFonts.nunitoSans(
     fontSize: 12,
     fontWeight: FontWeight.w400,
     color: Colors.black,
   ),
-  labelLarge: GoogleFonts.inter(
+  labelLarge: GoogleFonts.nunitoSans(
     fontSize: 14,
     fontWeight: FontWeight.w500,
-    color: Colors.black,
+    color: Colors.black.withAlpha(180),
   ),
-  labelMedium: GoogleFonts.inter(
+  labelMedium: GoogleFonts.nunitoSans(
     fontSize: 12,
     fontWeight: FontWeight.w500,
     color: Colors.black,
   ),
-  labelSmall: GoogleFonts.inter(
+  labelSmall: GoogleFonts.nunitoSans(
     fontSize: 11,
     fontWeight: FontWeight.w500,
     color: Colors.black,
@@ -80,77 +81,77 @@ final TextTheme lightTextTheme = TextTheme(
 );
 
 final TextTheme darkTextTheme = TextTheme(
-  displayLarge: GoogleFonts.inter(
+  displayLarge: GoogleFonts.nunitoSans(
     fontSize: 57,
     fontWeight: FontWeight.w400,
     color: Colors.white,
   ),
-  displayMedium: GoogleFonts.inter(
+  displayMedium: GoogleFonts.nunitoSans(
     fontSize: 45,
     fontWeight: FontWeight.w400,
     color: Colors.white,
   ),
-  displaySmall: GoogleFonts.inter(
+  displaySmall: GoogleFonts.nunitoSans(
     fontSize: 36,
     fontWeight: FontWeight.w400,
     color: Colors.white,
   ),
-  headlineLarge: GoogleFonts.inter(
+  headlineLarge: GoogleFonts.nunitoSans(
     fontSize: 32,
     fontWeight: FontWeight.w400,
     color: Colors.white,
   ),
-  headlineMedium: GoogleFonts.inter(
+  headlineMedium: GoogleFonts.nunitoSans(
     fontSize: 28,
     fontWeight: FontWeight.w400,
     color: Colors.white,
   ),
-  headlineSmall: GoogleFonts.inter(
+  headlineSmall: GoogleFonts.nunitoSans(
     fontSize: 24,
     fontWeight: FontWeight.w400,
-    color: Colors.white,
+    color: TextColors.highLightText,
   ),
-  titleLarge: GoogleFonts.inter(
+  titleLarge: GoogleFonts.nunitoSans(
     fontSize: 22,
     fontWeight: FontWeight.w400,
     color: Colors.white,
   ),
-  titleMedium: GoogleFonts.inter(
+  titleMedium: GoogleFonts.nunitoSans(
     fontSize: 16,
     fontWeight: FontWeight.w500,
     color: Colors.white,
   ),
-  titleSmall: GoogleFonts.inter(
+  titleSmall: GoogleFonts.nunitoSans(
     fontSize: 14,
     fontWeight: FontWeight.w500,
     color: Colors.white,
   ),
-  bodyLarge: GoogleFonts.inter(
+  bodyLarge: GoogleFonts.nunitoSans(
     fontSize: 16,
     fontWeight: FontWeight.w400,
-    color: Colors.white,
+    color: TextColors.mediumLightText,
   ),
-  bodyMedium: GoogleFonts.inter(
+  bodyMedium: GoogleFonts.nunitoSans(
     fontSize: 14,
     fontWeight: FontWeight.w400,
-    color: Colors.white,
+    color: TextColors.lowLightText,
   ),
-  bodySmall: GoogleFonts.inter(
+  bodySmall: GoogleFonts.nunitoSans(
     fontSize: 12,
     fontWeight: FontWeight.w400,
     color: Colors.white,
   ),
-  labelLarge: GoogleFonts.inter(
+  labelLarge: GoogleFonts.nunitoSans(
     fontSize: 14,
     fontWeight: FontWeight.w500,
     color: Colors.white,
   ),
-  labelMedium: GoogleFonts.inter(
+  labelMedium: GoogleFonts.nunitoSans(
     fontSize: 12,
     fontWeight: FontWeight.w500,
     color: Colors.white,
   ),
-  labelSmall: GoogleFonts.inter(
+  labelSmall: GoogleFonts.nunitoSans(
     fontSize: 11,
     fontWeight: FontWeight.w500,
     color: Colors.white,

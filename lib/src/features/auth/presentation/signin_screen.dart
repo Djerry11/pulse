@@ -25,12 +25,19 @@ class SignInScreen extends ConsumerStatefulWidget {
 class _SignInScreenState extends ConsumerState<SignInScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  // * Focus Node
+  final _passwordFocusNode = FocusNode();
   // final _isLoading = false;
+  void onUsernameSubmitted() {
+    _passwordFocusNode.requestFocus();
+  }
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _passwordFocusNode.dispose();
 
     super.dispose();
   }
@@ -85,8 +92,6 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                   //--------------forgot password --------------
                   _forgotPasswordBuilder(),
 
-                  //--------------gap --------------
-
                   gapH24,
 
                   //--------------log in button --------------
@@ -134,13 +139,17 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
 
   //--------logo builder-----------------
   Widget _pulseLogoBuilder(BuildContext context) {
+    const imageWidth = 150;
+    const imageHeight = 130;
     return Column(
       children: [
         Image.asset(
           'assets/logo/pulse_logo.png',
-          width: 150.w,
-          height: 130.h,
+          width: imageWidth.w,
+          height: imageHeight.h,
           color: AppColors.primaryTheme,
+          cacheHeight: (imageHeight * 3),
+          cacheWidth: (imageWidth * 3),
         ),
         Text(
           context.tr('app_name'),
@@ -158,14 +167,19 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
   //----------------- Email Input -----------------
   Widget _emailInputBuilder() {
     return PulseInput(
+      autoFocus: false,
       controller: _emailController,
       hintText: context.tr('email_hint'),
+      onFormSubmitted: (_) {
+        onUsernameSubmitted();
+      },
     ).pX(15);
   }
 
 //----------------- Password Input -----------------
   Widget _passwordInputBuilder() {
     return PulseInput(
+      focusNode: _passwordFocusNode,
       hintText: context.tr('password_hint'),
       password: true,
       controller: _passwordController,
@@ -204,7 +218,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
       //----- button label style -----
       textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
             color: Colors.white,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.bold,
           ),
       //-- action on pressed --
       onPressed: () {
@@ -258,12 +272,8 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
         Text(
           context.tr('dont_have_account'),
           style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                color: Theme.of(context)
-                    .textTheme
-                    .labelSmall!
-                    .color!
-                    .withAlpha(180),
-                fontWeight: FontWeight.w500,
+                color: Theme.of(context).textTheme.bodyLarge!.color,
+                fontWeight: FontWeight.bold,
               ),
         ).pR(6),
         //--- sign up button --
@@ -271,7 +281,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
           context.tr('sign_up'),
           style: Theme.of(context).textTheme.titleMedium!.copyWith(
                 color: AppColors.primaryTheme,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.bold,
               ),
           onPressed: () {
             debugPrint('Sign Up');

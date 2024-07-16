@@ -138,7 +138,11 @@ class CustomPulseButton extends StatelessWidget {
                       if (text != null && !isLoading)
                         Text(
                           '$text',
-                          style: textStyle,
+                          style: textStyle ??
+                              Theme.of(context).textTheme.titleMedium!.copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                         ),
                       if (trailingIcon != null)
                         trailingIcon ?? const SizedBox.shrink(),

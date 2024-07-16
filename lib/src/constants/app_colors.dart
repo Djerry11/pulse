@@ -20,3 +20,13 @@ class AppColors {
   static const Color textLightDarkMode = Color(0xFFB0B0B0);
   static const Color inputBackgroundDark = Color(0xFF2C2C2C);
 }
+
+class TextColors {
+  static const Color highDarkText = Color(0xFF424242); //shade 800
+  static const Color mediumDarkText = Color(0xFF616161);
+  static const Color lowDarkText = Color(0xFF757575);
+
+  static const Color highLightText = Colors.white;
+  static const Color mediumLightText = Color.fromRGBO(245, 245, 245, 1);
+  static const Color lowLightText = Color.fromRGBO(224, 224, 224, 1);
+}

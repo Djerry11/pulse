@@ -29,6 +29,7 @@ enum AppRoute {
   signUpName,
   signUpPassword,
   signUpUsername,
+  signUpBirthDate,
   signUpMobileNumber,
   signUpConfirmation,
   signUpComplete,
@@ -154,6 +155,10 @@ GoRouter goRouter(GoRouterRef ref) {
               name: AppRoute.signUpUsername.name,
               builder: (context, state) => const SignUpUsernameScreen(),
             ),
+            GoRoute(
+                path: 'birthdate',
+                name: AppRoute.signUpBirthDate.name,
+                builder: (context, state) => const SignUpBirthDateScreen()),
             GoRoute(
               path: 'mobileNumber',
               name: AppRoute.signUpMobileNumber.name,
