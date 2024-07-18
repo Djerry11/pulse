@@ -35,3 +35,7 @@ final gapH24 = SizedBox(height: Sizes.p24.h);
 final gapH32 = SizedBox(height: Sizes.p32.h);
 final gapH48 = SizedBox(height: Sizes.p48.h);
 final gapH64 = SizedBox(height: Sizes.p64.h);
+
+class AppSizes {
+  static double buttonHeight = 60.spMin;
+}

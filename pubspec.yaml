@@ -53,6 +53,7 @@ dependencies:
   linkfy_text: ^1.1.6
   flutter_svg: ^2.0.10+1
   flutter_native_splash: ^2.4.1
+  calendar_date_picker2: ^1.1.5
 
 dev_dependencies:
   flutter_test:

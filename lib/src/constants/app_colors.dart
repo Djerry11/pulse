@@ -19,6 +19,13 @@ class AppColors {
   static const Color textDarkMode = Color(0xFFE0E0E0);
   static const Color textLightDarkMode = Color(0xFFB0B0B0);
   static const Color inputBackgroundDark = Color(0xFF2C2C2C);
+
+  static const Color errorRed = Color.fromRGBO(183, 28, 28, 1);
+  //disable button color
+  static const List<Color> disabledButtonColors = [
+    Color(0xFFE0E0E0),
+    Color(0xFFBDBDBD),
+  ];
 }
 
 class TextColors {

@@ -138,9 +138,20 @@ class CustomPulseButton extends StatelessWidget {
                       if (text != null && !isLoading)
                         Text(
                           '$text',
-                          style: textStyle ??
-                              Theme.of(context).textTheme.titleMedium!.copyWith(
+                          style: textStyle != null
+                              ? textStyle!.copyWith(
+                                  fontSize: textStyle!.fontSize!.spMax,
+                                )
+                              : Theme.of(context)
+                                  .textTheme
+                                  .titleMedium!
+                                  .copyWith(
                                     color: Colors.white,
+                                    fontSize: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium!
+                                        .fontSize!
+                                        .spMax,
                                     fontWeight: FontWeight.bold,
                                   ),
                         ),
@@ -198,7 +209,11 @@ class CustomPulseButton extends StatelessWidget {
                   if (text != null)
                     Text(
                       '$text',
-                      style: textStyle,
+                      style: textStyle != null
+                          ? textStyle!.copyWith(
+                              fontSize: textStyle!.fontSize!.spMax,
+                            )
+                          : textStyle,
                     ),
                   if (trailingIcon != null && text != null)
                     if (trailingIcon != null)

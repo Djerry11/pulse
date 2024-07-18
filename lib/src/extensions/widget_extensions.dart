@@ -66,3 +66,35 @@ extension WidgetExtensions on Widget {
         child: this,
       );
 }
+
+extension WidgetListExtensions on List<Widget> {
+  Widget toColumn(
+          {MainAxisAlignment mainAxisAlignment = MainAxisAlignment.start}) =>
+      Column(
+        mainAxisAlignment: mainAxisAlignment,
+        children: this,
+      );
+
+  Widget toRow(
+          {MainAxisAlignment mainAxisAlignment = MainAxisAlignment.start}) =>
+      Row(
+        mainAxisAlignment: mainAxisAlignment,
+        children: this,
+      );
+}
+
+extension DateTimeExtensions on DateTime {
+  String get toFormattedString {
+    return '$day/$month/$year';
+  }
+
+  int get toInt {
+    return millisecondsSinceEpoch;
+  }
+}
+
+extension IntExt on int {
+  DateTime get toDate {
+    return DateTime.fromMillisecondsSinceEpoch(this);
+  }
+}

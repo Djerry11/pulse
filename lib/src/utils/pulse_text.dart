@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:linkfy_text/linkfy_text.dart';
 import 'package:flutter/material.dart';
 // import 'package:linkfy_text/src/model/link.dart';
@@ -478,7 +479,11 @@ class _PTextState extends State<PulseText> {
       onTap: widget.onPressed,
       child: Text(
         text ?? widget.value ?? '',
-        style: widget.style ?? _defaultStyle,
+        style: widget.style != null
+            ? widget.style!.copyWith(
+                fontSize: widget.style!.fontSize!.spMax,
+              )
+            : _defaultStyle,
         textAlign: widget.textAlign,
         overflow: widget.overflow,
       ),
@@ -492,8 +497,11 @@ class _PTextState extends State<PulseText> {
       child: LinkifyText(
         text ?? widget.value ?? '',
         textStyle: widget.style ?? _defaultStyle,
-        linkStyle:
-            widget.linkStyle ?? _defaultStyle?.copyWith(color: Colors.blue),
+        linkStyle: widget.style != null
+            ? widget.style!.copyWith(
+                fontSize: widget.style!.fontSize!.spMax,
+              )
+            : _defaultStyle?.copyWith(color: Colors.blue),
         onTap: widget.onLinkPressed,
         textAlign: widget.textAlign,
         overflow: widget.overflow,

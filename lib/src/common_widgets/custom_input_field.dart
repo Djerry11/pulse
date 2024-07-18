@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pulse/src/constants/app_colors.dart';
 
 class PulseInput extends StatefulWidget {
   const PulseInput({
@@ -21,6 +22,11 @@ class PulseInput extends StatefulWidget {
     this.textInputType = TextInputType.text,
     this.limit = 5000,
     this.inputFormatters = const [],
+    this.errorWidget,
+    this.isValidated,
+    this.padding,
+    this.textStyle,
+    this.hintStyle,
   });
 
   final TextEditingController? controller;
@@ -39,6 +45,11 @@ class PulseInput extends StatefulWidget {
   final TextInputType textInputType;
   final int limit;
   final List<TextInputFormatter> inputFormatters;
+  final Widget? errorWidget;
+  final bool? isValidated;
+  final EdgeInsetsGeometry? padding;
+  final TextStyle? textStyle;
+  final TextStyle? hintStyle;
 
   @override
   State<PulseInput> createState() => _PulseInputState();
@@ -76,10 +87,16 @@ class _PulseInputState extends State<PulseInput> {
       inputFormatters: widget.inputFormatters,
       enabled: widget.enabled,
       obscureText: widget.password && !_passwordVisible,
-      style: Theme.of(context).textTheme.titleSmall!.copyWith(
-            fontWeight: FontWeight.w400,
-            fontSize: 16.sp,
-          ),
+      style: widget.textStyle ??
+          Theme.of(context).textTheme.titleSmall!.copyWith(
+                fontWeight: FontWeight.w700,
+                color: Theme.of(context)
+                    .textTheme
+                    .titleSmall!
+                    .color!
+                    .withOpacity(0.8),
+                fontSize: 17.spMax,
+              ),
       maxLength: widget.limit,
       keyboardType: widget.textInputType,
       textInputAction: TextInputAction.done,
@@ -91,9 +108,12 @@ class _PulseInputState extends State<PulseInput> {
       },
       decoration: InputDecoration(
         hintText: widget.hintText,
+
         counterText: '',
-        contentPadding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
+        contentPadding: widget.padding ??
+            EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
         prefixIcon: widget.leading,
+        error: widget.errorWidget,
         suffixIcon: widget.password
             ? IconButton(
                 icon: Icon(
@@ -107,9 +127,25 @@ class _PulseInputState extends State<PulseInput> {
                 },
               )
             : widget.trailing,
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.r),
+          borderSide: BorderSide(
+              color: (widget.isValidated != null)
+                  ? widget.isValidated!
+                      ? Colors.green
+                      : AppColors.errorRed
+                  : AppColors.errorRed,
+              width: 2),
+        ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.r),
-          borderSide: const BorderSide(color: Colors.red, width: 2),
+          borderSide: BorderSide(
+              color: (widget.isValidated != null)
+                  ? widget.isValidated!
+                      ? Colors.green
+                      : AppColors.errorRed
+                  : AppColors.errorRed,
+              width: 2),
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.r),
@@ -133,9 +169,18 @@ class _PulseInputState extends State<PulseInput> {
         // labelStyle: TextStyle(
         //   color: _isFocused ? Theme.of(context).primaryColor : Colors.grey,
         // ),
-        hintStyle: themeContext.textTheme.titleSmall!.copyWith(
-          color: Colors.grey.shade500,
+        disabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.r),
+          borderSide: BorderSide(
+              color: themeContext.colorScheme.onSurface.withOpacity(0.5),
+              width: 1.7),
         ),
+        //--
+        hintStyle: widget.hintStyle ??
+            themeContext.textTheme.titleSmall!.copyWith(
+              color: Colors.grey.shade500,
+              fontSize: 16.sp,
+            ),
       ),
     );
   }

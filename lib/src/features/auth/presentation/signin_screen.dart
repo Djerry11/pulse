@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -25,6 +26,8 @@ class SignInScreen extends ConsumerStatefulWidget {
 class _SignInScreenState extends ConsumerState<SignInScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  final double buttonHeight = AppSizes.buttonHeight;
 
   // * Focus Node
   final _passwordFocusNode = FocusNode();
@@ -81,7 +84,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   //----------------- Logo -----------------
-                  _pulseLogoBuilder(context).pY(50.h),
+                  _pulseLogoBuilder(context).pY(40.h),
 
                   //--------------email input  --------------
                   _emailInputBuilder().pB(25.h),
@@ -109,7 +112,14 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                           thickness: 2,
                         ),
                       ),
-                      const Text('or').pX(5),
+                      Text(
+                        'or',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ).pX(5),
                       const Expanded(
                         child: Divider(
                           thickness: 2,
@@ -188,19 +198,18 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
 
 //----------------- Forgot Password -----------------
   Widget _forgotPasswordBuilder() {
+    final TextTheme textTheme = Theme.of(context).textTheme;
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         PulseText.titleMedium(
           context.tr('forgot_password'),
-          style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                color: Theme.of(context)
-                    .textTheme
-                    .labelSmall!
-                    .color!
-                    .withAlpha(180),
-                fontWeight: FontWeight.w500,
-              ),
+          style: textTheme.titleMedium!.copyWith(
+            color:
+                Theme.of(context).textTheme.labelSmall!.color!.withAlpha(180),
+            fontSize: textTheme.titleMedium!.fontSize!.sp,
+            fontWeight: FontWeight.w500,
+          ),
           onPressed: () {
             toggleTheme();
           },
@@ -211,15 +220,17 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
 
   //----------------- Sign In Button -----------------
   Widget _signInButtonBuilder(BuildContext context) {
+    final TextTheme textTheme = Theme.of(context).textTheme;
     //---------- filled button ------------
     return CustomPulseButton.filled(
       text: context.tr('log_in'),
-      height: 60.h,
+      height: buttonHeight,
       //----- button label style -----
-      textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
+      textStyle: textTheme.titleMedium!.copyWith(
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+        fontSize: textTheme.titleMedium!.fontSize!.spMax,
+      ),
       //-- action on pressed --
       onPressed: () {
         toggleLocale();
@@ -231,17 +242,19 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
 
   //----------------- Continue with Google Button -----------------
   Widget _loginWithGoogleButtonBuilder(BuildContext context) {
+    final TextTheme textTheme = Theme.of(context).textTheme;
     //---------- outlined button ------------
     return CustomPulseButton.outlined(
       text: context.tr('login_with'),
       //----- button border color -----
       color: AppColors.primaryTheme,
       //----- button label style -----
-      textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
-            color: AppColors.primaryTheme,
-            fontWeight: FontWeight.w500,
-          ),
-      height: 60.h,
+      textStyle: textTheme.titleMedium!.copyWith(
+        color: AppColors.primaryTheme,
+        // fontSize: textTheme.titleMedium!.fontSize!.sp,
+        fontWeight: FontWeight.w500,
+      ),
+      height: buttonHeight,
       //----- leading icon -----
       leadingIcon: SvgPicture.asset(
         'assets/logo/Glogo.svg',
@@ -265,24 +278,26 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
 
   //------------ dont have an account --------------
   Widget _dontHaveAccountBuilder(BuildContext context) {
+    final TextTheme textTheme = Theme.of(context).textTheme;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         //--- ask dont have an account--
         Text(
           context.tr('dont_have_account'),
-          style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                color: Theme.of(context).textTheme.bodyLarge!.color,
-                fontWeight: FontWeight.bold,
-              ),
+          style: textTheme.titleMedium!.copyWith(
+            color: textTheme.bodyLarge!.color,
+            fontWeight: FontWeight.bold,
+          ),
         ).pR(6),
         //--- sign up button --
         PulseText.titleMedium(
           context.tr('sign_up'),
-          style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                color: AppColors.primaryTheme,
-                fontWeight: FontWeight.bold,
-              ),
+          style: textTheme.titleMedium!.copyWith(
+            color: AppColors.primaryTheme,
+            fontWeight: FontWeight.bold,
+            fontSize: textTheme.bodyLarge!.fontSize!.sp,
+          ),
           onPressed: () {
             debugPrint('Sign Up');
             context.pushNamed(AppRoute.signUp.name);
